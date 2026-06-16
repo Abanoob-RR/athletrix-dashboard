@@ -36,9 +36,9 @@ elapsed = time.time() - st.session_state.session_start_time
 time_left = max(0, 180 - int(elapsed))
 
 # High-fidelity live hardware simulation (تم تعديل النطاقات بناءً على طلبك)
-live_hr = np.random.randint(150, 191)
-live_spd = np.random.uniform(8, 28)  
-live_mp = np.random.uniform(250, 900)
+live_hr = np.random.randint(70, 111)
+live_spd = np.random.uniform(3, 6)  
+live_mp = np.random.uniform(80, 250)
 ax, ay, az = np.random.uniform(-3, 3), np.random.uniform(-3, 3), np.random.uniform(-3, 3)
 
 st.session_state.current_buffer.append({
@@ -181,7 +181,7 @@ with d_col3:
     st.markdown("<div class='panel-container'><div class='panel-title'>⚙️ Kinetic Efficiency</div>", unsafe_allow_html=True)
     # تم تعديل حدود المؤشر لتتوافق مع رينج (55 - 95) الخاص بك
     eff_value = min(95, int((latest['Speed'] / (latest['MetabolicPower'] + 1)) * 1200)) if latest['MetabolicPower'] > 0 else 0
-    fig_gauge = go.Figure(go.Indicator(mode="gauge+number", value=eff_value, gauge={'axis': {'range': [55, 95]}, 'bar': {'color': "#00f3ff"}, 'bgcolor': "#111720"}))
+    fig_gauge = go.Figure(go.Indicator(mode="gauge+number", value=eff_value, gauge={'axis': {'range': [75, 95]}, 'bar': {'color': "#00f3ff"}, 'bgcolor': "#111720"}))
     fig_gauge.update_layout(template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', height=190, margin=dict(l=20,r=20,b=10,t=10))
     st.plotly_chart(fig_gauge, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -190,7 +190,7 @@ with d_col4:
     st.markdown("<div class='panel-container'><div class='panel-title'>⚠️ Fatigue Index</div>", unsafe_allow_html=True)
     # تم تعديل حدود المؤشر لتتوافق مع رينج (40 - 95) الخاص بك
     fatigue_index = min(95, int((avg_hr / hr_max) * 100)) if hr_max > 0 else 0
-    fig_fatigue = go.Figure(go.Indicator(mode="gauge+number", value=fatigue_index, gauge={'axis': {'range': [40, 95]}, 'bar': {'color': "#ff3b30"}, 'bgcolor': "#111720"}))
+    fig_fatigue = go.Figure(go.Indicator(mode="gauge+number", value=fatigue_index, gauge={'axis': {'range': [5, 25]}, 'bar': {'color': "#ff3b30"}, 'bgcolor': "#111720"}))
     fig_fatigue.update_layout(template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', height=190, margin=dict(l=20,r=20,b=10,t=10))
     st.plotly_chart(fig_fatigue, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
